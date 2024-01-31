@@ -13,6 +13,7 @@ app.get("/", (req, res) => {
 
 io.on("connection", (socket) => {
   console.log("User Conencted");
+  console.log("Id :", socket.id);
 });
 
 app.listen(PORT, () => {
