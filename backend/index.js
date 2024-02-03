@@ -34,6 +34,10 @@ io.on("connection", (socket) => {
     io.emit("message-recieved", data);
   });
 
+  socket.on("oneToOne", ({ onlyToSocket, inputValue }) => {
+    io.to(onlyToSocket).emit("message-recieved", inputValue);
+  });
+
   socket.on("disconnect", () => {
     console.log(`User ${socket.id} disconnected`);
   });
