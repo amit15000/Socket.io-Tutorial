@@ -19,8 +19,18 @@ app.get("/", (req, res) => {
 });
 
 io.on("connection", (socket) => {
-  console.log("User Conencted");
-  console.log("Id :", socket.id);
+  console.log("You are now Conencted {From backend}");
+  socket.emit(
+    "welcome",
+    `This is your socket Id  ${socket.id} {msg sent from bEnd to fEnd}`
+  );
+  socket.broadcast.emit(
+    "msgToAll",
+    `${socket.id} joined the circuit {msg from bEnd}`
+  );
+  io.emit("messageToRoom", (data) => {
+    console.log(data);
+  });
 });
 
 server.listen(PORT, () => {
