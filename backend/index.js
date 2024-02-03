@@ -28,8 +28,14 @@ io.on("connection", (socket) => {
     "msgToAll",
     `${socket.id} joined the circuit {msg from bEnd}`
   );
-  io.emit("messageToRoom", (data) => {
-    console.log(data);
+  socket.on("messageToRoom", (data) => {
+    // console.log(data);
+    //message to all
+    io.emit("message-recieved", data);
+  });
+
+  socket.on("disconnect", () => {
+    console.log(`User ${socket.id} disconnected`);
   });
 });
 
