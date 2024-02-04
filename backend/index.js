@@ -41,6 +41,9 @@ io.on("connection", (socket) => {
   socket.on("disconnect", () => {
     console.log(`User ${socket.id} disconnected`);
   });
+  socket.on("join-room", (roomName) => {
+    socket.join(roomName);
+  });
 });
 
 server.listen(PORT, () => {
