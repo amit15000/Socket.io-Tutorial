@@ -38,6 +38,10 @@ io.on("connection", (socket) => {
     io.to(onlyToSocket).emit("message-recieved", inputValue);
   });
 
+  socket.on("onlyToRoom", ({ toSendToRoomName, messageToRoom }) => {
+    io.to(toSendToRoomName).emit("message-recieved", messageToRoom);
+  });
+
   socket.on("disconnect", () => {
     console.log(`User ${socket.id} disconnected`);
   });
