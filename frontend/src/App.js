@@ -8,7 +8,8 @@ function App() {
   const [inputValue, setInputValue] = useState("");
   const [mySocketId, setMySocketId] = useState("");
   const [onlyToSocket, setOnlyToSocket] = useState("");
-
+  const [received_messages, setreceived_messages] = useState([]);
+  console.log(received_messages);
   const submitHandler = (e) => {
     e.preventDefault();
 
@@ -30,9 +31,10 @@ function App() {
     });
     socket.on("msgToAll", (message) => console.log(message));
 
-    socket.on("message-recieved", (data) => {
+    socket.on("message-recieved", (message) => {
       // console.log("Message recieved :", data);
-      console.log(data);
+      setreceived_messages((prev) => [...prev, message]);
+      console.log(message);
     });
 
     return () => {
@@ -63,6 +65,11 @@ function App() {
           Submit
         </button>
       </form>
+      <div className="flex flex-col text-lg w-200 h-300 bg-slate-300 text-red-900">
+        {received_messages.map((message, index) => {
+          return <h3 key={index}>{message}</h3>;
+        })}
+      </div>
     </div>
   );
 }
